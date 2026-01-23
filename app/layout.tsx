@@ -1,3 +1,5 @@
+import './globals.css'
+
 export const metadata = {
   title: 'Virtue ID',
   description: 'Digital Solutions',
@@ -10,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="bg-slate-950">{children}</body>
     </html>
   )
 }
