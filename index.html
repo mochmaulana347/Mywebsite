@@ -3,62 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIRTUE ID | Digital Solutions</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Booking Jadwal PT Ikhsan</title>
+    <style>
+        /* Gaya Visual (Warna Ungu sesuai seleramu) */
+        body { font-family: sans-serif; background: #f4f4f9; display: flex; justify-content: center; padding: 20px; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h2 { color: #6200ee; text-align: center; }
+        .pt-info { text-align: center; margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        
+        /* State Tombol */
+        .slot { 
+            padding: 15px; border: 1px solid #6200ee; border-radius: 8px; 
+            text-align: center; cursor: pointer; font-weight: bold; color: #6200ee;
+            transition: 0.3s;
+        }
+        .slot:hover { background: #6200ee; color: white; }
+        .booked { background: #e0e0e0; border-color: #bdbdbd; color: #757575; cursor: not-allowed; }
+        
+        /* Modal Form */
+        #bookingForm { display: none; margin-top: 20px; border-top: 2px solid #eee; padding-top: 20px; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;}
+        button { width: 100%; padding: 12px; background: #6200ee; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;}
+    </style>
 </head>
-<body class="bg-[#020617] text-white font-sans antialiased">
+<body>
 
-    <nav class="flex items-center justify-between px-6 py-5 max-w-6xl mx-auto border-b border-slate-800">
-        <div class="text-2xl font-black tracking-tighter text-blue-500">VIRTUE ID</div>
-        <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-400">
-            <a href="#" class="hover:text-white transition">Beranda</a>
-            <a href="/store" class="hover:text-white transition">Produk</a>
-            <a href="/tools" class="hover:text-white transition">Tools</a>
-        </div>
-        <a href="https://wa.me/your-number" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition">
-            Kontak Admin
-        </a>
-    </nav>
+<div class="card">
+    <div class="pt-info">
+        <h2>Jadwal PT Ikhsan</h2>
+        <p>Sustain with 1 Coach</p>
+    </div>
 
-    <header class="max-w-4xl mx-auto text-center py-20 px-6">
-        <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight">
-            Solusi Digital <span class="text-blue-500">Premium</span> Tanpa Ribet.
-        </h1>
-        <p class="text-slate-400 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
-            Dapatkan kebutuhan akun premium, tools marketing, dan layanan digital terbaik hanya dalam beberapa klik.
-        </p>
-        <div class="flex flex-col md:flex-row gap-4 justify-center">
-            <a href="/store" class="bg-white text-black px-8 py-4 rounded-xl font-bold hover:bg-slate-200 transition text-lg">
-                Lihat Katalog
-            </a>
-            <a href="/tools" class="bg-slate-900 border border-slate-700 px-8 py-4 rounded-xl font-bold hover:bg-slate-800 transition text-lg">
-                Gunakan Tools
-            </a>
+    <div id="slotGrid" class="grid">
         </div>
-    </header>
 
-    <section class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-8 border-t border-slate-800">
-        <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-blue-500/50 transition">
-            <i class="fa-solid fa-bolt text-blue-500 text-2xl mb-4"></i>
-            <h3 class="font-bold text-lg mb-2">Proses Instan</h3>
-            <p class="text-slate-400 text-sm">Gak pake lama, pesanan langsung diproses otomatis setelah konfirmasi.</p>
-        </div>
-        <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-blue-500/50 transition">
-            <i class="fa-solid fa-shield-halved text-blue-500 text-2xl mb-4"></i>
-            <h3 class="font-bold text-lg mb-2">Garansi Penuh</h3>
-            <p class="text-slate-400 text-sm">Semua produk kami memiliki garansi. Jika ada masalah, kami bantu sampai tuntas.</p>
-        </div>
-        <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-blue-500/50 transition">
-            <i class="fa-solid fa-headset text-blue-500 text-2xl mb-4"></i>
-            <h3 class="font-bold text-lg mb-2">Support 24/7</h3>
-            <p class="text-slate-400 text-sm">Admin siap membantu kamu kapan saja melalui WhatsApp atau Telegram.</p>
-        </div>
-    </section>
+    <div id="bookingForm">
+        <h3>Konfirmasi Booking</h3>
+        <p id="selectedTimeText"></p>
+        <input type="text" id="clientName" placeholder="Nama Lengkap" required>
+        <button onclick="sendToWA()">Konfirmasi via WhatsApp</button>
+    </div>
+</div>
 
-    <footer class="max-w-6xl mx-auto px-6 py-12 text-center border-t border-slate-800 mt-20">
-        <p class="text-slate-500 text-sm">&copy; 2026 Virtue ID. Dibuat untuk kecepatan dan kenyamanan.</p>
-    </footer>
+<script>
+    // Data "Bagian Dalam" (Bisa diganti API nantinya)
+    const availableSlots = [
+        { jam: "06:00", booked: false },
+        { jam: "08:00", booked: true },
+        { jam: "10:00", booked: false },
+        { jam: "16:00", booked: false },
+        { jam: "19:00", booked: false },
+        { jam: "21:00", booked: true }
+    ];
+
+    let selectedTime = "";
+
+    // Fungsi nampilin slot
+    function renderSlots() {
+        const grid = document.getElementById('slotGrid');
+        grid.innerHTML = "";
+        availableSlots.forEach(slot => {
+            const div = document.createElement('div');
+            div.className = `slot ${slot.booked ? 'booked' : ''}`;
+            div.innerText = slot.jam;
+            if (!slot.booked) {
+                div.onclick = () => selectSlot(slot.jam);
+            } else {
+                div.innerText += " (Full)";
+            }
+            grid.appendChild(div);
+        });
+    }
+
+    function selectSlot(jam) {
+        selectedTime = jam;
+        document.getElementById('selectedTimeText').innerText = "Jam Pilihan: " + jam;
+        document.getElementById('bookingForm').style.display = 'block';
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function sendToWA() {
+        const name = document.getElementById('clientName').value;
+        if (!name) return alert("Isi nama dulu!");
+        
+        const phone = "628123456789"; // Ganti No WA Ikhsan di sini
+        const text = `Halo Coach Ikhsan, saya ${name}. Saya mau konfirmasi booking jadwal latihan untuk jam ${selectedTime}. Apakah tersedia?`;
+        
+        const waLink = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(text)}`;
+        window.open(waLink, '_blank');
+    }
+
+    renderSlots();
+</script>
 
 </body>
 </html>
