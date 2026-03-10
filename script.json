@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Sawah Indo V1",
+    "desc": "Fitur: Auto Panen, Fast Walk, Anti AFK",
+    "code": "loadstring(game:HttpGet('https://pastebin.com/raw/1GJ9A4Yd'))()"
+  },
+  {
+    "title": "Auto Farm Padi",
+    "desc": "Script khusus buat farming padi otomatis 24 jam",
+    "code": "print('Script Sedang Loading...')"
+  }
+]
