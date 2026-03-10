@@ -3,163 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitHub Pro | Schedule Management</title>
+    <title>Sawah Indo Script | Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #0b0e14; color: #e2e8f0; font-family: 'Inter', sans-serif; }
-        .purple-card { background: linear-gradient(145deg, #1e1b4b, #312e81); border: 1px solid #4338ca; }
-        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .btn-primary { background: linear-gradient(90deg, #6366f1, #a855f7); transition: 0.3s; }
-        .btn-primary:hover { opacity: 0.9; transform: scale(1.02); }
-        input[type="text"]:focus { border-color: #a855f7; outline: none; box-shadow: 0 0 10px rgba(168, 85, 247, 0.3); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0f172a; color: white; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .gradient-text { background: linear-gradient(90deg, #4ade80, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 </head>
-<body class="min-h-screen pb-10">
+<body class="min-h-screen flex items-center justify-center p-6">
 
-    <div class="max-w-md mx-auto px-4 pt-8">
-        <header class="flex justify-between items-center mb-10">
-            <div>
-                <h1 class="text-2xl font-black text-white tracking-tight">FITHUB <span class="text-indigo-500">PRO</span></h1>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">Booking & Schedule System</p>
-            </div>
-            <div class="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center font-bold">I</div>
-        </header>
-
-        <div id="view-pt" class="space-y-4">
-            <h2 class="text-lg font-bold text-white mb-4">Pilih Coach Kamu</h2>
-            <div id="pt-list" class="space-y-3">
-                </div>
+    <div class="max-w-2xl w-full glass rounded-3xl p-8 shadow-2xl">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-extrabold gradient-text mb-2 tracking-tight">SAWAH INDO</h1>
+            <p class="text-slate-400">Script Roblox Otomatis & Anti-Ribet</p>
         </div>
 
-        <div id="view-schedule" class="hidden animate-fade-in">
-            <button onclick="showView('view-pt')" class="mb-5 text-indigo-400 text-sm font-medium flex items-center">
-                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                Ganti Coach
-            </button>
-
-            <div class="purple-card p-5 rounded-3xl mb-6 flex items-center gap-4">
-                <img id="pt-avatar" src="" class="w-14 h-14 rounded-2xl object-cover ring-2 ring-indigo-400/30">
-                <div>
-                    <h3 id="pt-name" class="font-bold text-lg text-white"></h3>
-                    <span id="pt-special" class="text-xs bg-indigo-500/20 text-indigo-300 px-2 py-1 rounded-md"></span>
-                </div>
+        <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-green-400 to-blue-500 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+            <div class="relative bg-slate-900 rounded-xl p-5 border border-slate-700">
+                <pre id="scriptCode" class="text-sm text-green-400 overflow-x-auto">loadstring(game:HttpGet("https://pastebin.com/raw/1GJ9A4Yd"))()</pre>
             </div>
-
-            <div class="glass p-4 rounded-2xl mb-6">
-                <label class="text-sm font-semibold text-gray-300 mb-2 block">Pilih Tanggal Latihan:</label>
-                <input type="text" id="date-picker" class="w-full bg-slate-800 border-none rounded-xl p-3 text-white focus:ring-2 ring-indigo-500" placeholder="Pilih Tanggal...">
-            </div>
-
-            <h3 class="text-sm font-bold text-gray-400 mb-3 uppercase">Sesi Tersedia</h3>
-            <div id="time-grid" class="grid grid-cols-3 gap-3">
-                </div>
         </div>
-    </div>
 
-    <div id="modal" class="fixed inset-0 bg-black/90 hidden items-end sm:items-center justify-center p-4 z-50">
-        <div class="glass w-full max-w-sm p-6 rounded-3xl animate-slide-up">
-            <h3 class="text-xl font-bold text-white mb-2">Konfirmasi Sesi</h3>
-            <p class="text-sm text-gray-400 mb-6">Latihan dengan <span id="conf-pt" class="text-white font-semibold"></span> pada <span id="conf-date" class="text-white font-semibold"></span> jam <span id="conf-time" class="text-white font-semibold"></span>.</p>
-            
-            <input type="text" id="client-name" placeholder="Nama Lengkap Anda" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 text-white mb-4">
-            
-            <div class="flex gap-3">
-                <button onclick="closeModal()" class="flex-1 py-4 bg-slate-700 rounded-xl font-bold">Batal</button>
-                <button onclick="finishBooking()" class="flex-1 py-4 btn-primary rounded-xl font-bold text-white">Konfirmasi WA</button>
-            </div>
+        <button onclick="copyToClipboard()" id="copyBtn" class="w-full mt-6 bg-white text-slate-900 font-bold py-4 rounded-xl hover:bg-slate-200 transition duration-300 flex items-center justify-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+            </svg>
+            COPY SCRIPT
+        </button>
+
+        <div class="mt-8 flex justify-between items-center text-xs text-slate-500 border-t border-slate-800 pt-6">
+            <span>Versi: 1.0.2 (Stable)</span>
+            <span class="flex items-center gap-1 italic">Dibuat dengan 🔥 oleh Kamu</span>
         </div>
     </div>
 
     <script>
-        const coaches = [
-            { id: 1, name: "Coach Ikhsan", spec: "Fat Loss Specialist", img: "https://i.pravatar.cc/150?u=1", wa: "628123456789" },
-            { id: 2, name: "Coach Budi", spec: "Muscle Building", img: "https://i.pravatar.cc/150?u=2", wa: "628987654321" }
-        ];
-
-        const timeSlots = ["07:00", "09:00", "11:00", "15:00", "17:00", "19:00", "20:00", "21:00"];
-        let currentPT = null;
-        let selectedDate = "";
-        let selectedTime = "";
-
-        function init() {
-            const list = document.getElementById('pt-list');
-            coaches.forEach(c => {
-                list.innerHTML += `
-                    <div onclick="selectPT(${c.id})" class="glass p-4 rounded-2xl flex items-center justify-between cursor-pointer active:scale-95 transition-all">
-                        <div class="flex items-center gap-4">
-                            <img src="${c.img}" class="w-12 h-12 rounded-xl object-cover">
-                            <div>
-                                <h4 class="font-bold text-white">${c.name}</h4>
-                                <p class="text-xs text-gray-400">${c.spec}</p>
-                            </div>
-                        </div>
-                        <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-indigo-400">→</div>
-                    </div>
-                `;
-            });
-
-            flatpickr("#date-picker", {
-                minDate: "today",
-                dateFormat: "d M Y",
-                onChange: (dates, str) => {
-                    selectedDate = str;
-                    renderTimes();
-                }
-            });
-        }
-
-        function selectPT(id) {
-            currentPT = coaches.find(c => c.id === id);
-            document.getElementById('pt-name').innerText = currentPT.name;
-            document.getElementById('pt-special').innerText = currentPT.spec;
-            document.getElementById('pt-avatar').src = currentPT.img;
-            showView('view-schedule');
-        }
-
-        function renderTimes() {
-            const grid = document.getElementById('time-grid');
-            grid.innerHTML = "";
-            timeSlots.forEach(t => {
-                const isBooked = Math.random() > 0.8; // Simulasi random booked
-                grid.innerHTML += `
-                    <button onclick="${isBooked ? '' : `confirmBooking('${t}')`}" 
-                        class="p-3 rounded-xl border font-medium text-sm transition-all
-                        ${isBooked ? 'border-slate-800 text-slate-600 cursor-not-allowed bg-slate-900' : 'border-indigo-500/50 text-indigo-200 hover:bg-indigo-600'}">
-                        ${t}
-                    </button>
-                `;
-            });
-        }
-
-        function confirmBooking(time) {
-            if(!selectedDate) return alert("Pilih tanggal dulu bro!");
-            selectedTime = time;
-            document.getElementById('conf-pt').innerText = currentPT.name;
-            document.getElementById('conf-date').innerText = selectedDate;
-            document.getElementById('conf-time').innerText = selectedTime;
-            document.getElementById('modal').classList.replace('hidden', 'flex');
-        }
-
-        function finishBooking() {
-            const name = document.getElementById('client-name').value;
-            if(!name) return alert("Isi nama kamu!");
+        function copyToClipboard() {
+            const code = document.getElementById('scriptCode').innerText;
+            const btn = document.getElementById('copyBtn');
             
-            const msg = `Halo ${currentPT.name}, saya ${name}. Mau booking sesi latihan:\n\n📅 Tanggal: ${selectedDate}\n⏰ Jam: ${selectedTime}\n\nApakah jadwal ini aman Coach?`;
-            window.open(`https://api.whatsapp.com/send?phone=${currentPT.wa}&text=${encodeURIComponent(msg)}`, '_blank');
-            closeModal();
+            navigator.clipboard.writeText(code).then(() => {
+                // Animasi Berhasil
+                btn.innerHTML = 'COPIED! ✅';
+                btn.classList.replace('bg-white', 'bg-green-500');
+                btn.classList.add('text-white');
+                
+                setTimeout(() => {
+                    btn.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        COPY SCRIPT`;
+                    btn.classList.replace('bg-green-500', 'bg-white');
+                    btn.classList.remove('text-white');
+                    btn.classList.add('text-slate-900');
+                }, 2000);
+            });
         }
-
-        function showView(viewId) {
-            document.getElementById('view-pt').classList.add('hidden');
-            document.getElementById('view-schedule').classList.add('hidden');
-            document.getElementById(viewId).classList.remove('hidden');
-        }
-
-        function closeModal() { document.getElementById('modal').classList.replace('flex', 'hidden'); }
-
-        init();
     </script>
 </body>
 </html>
