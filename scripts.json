@@ -1,7 +1,7 @@
 [
   {
     "title": "Sawah Indo V1",
-    "desc": "Fitur: Auto Panen, Sawit, Anti AFK", Commingsoon Auto Ayam
+    "desc": "Fitur: Auto Panen, Sawit, Commingsoon Auto Ayam",
     "code": "loadstring(game:HttpGet('https://pastebin.com/raw/1GJ9A4Yd'))()"
   },
   {
