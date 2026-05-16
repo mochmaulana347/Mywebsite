@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Digital Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 p-4 md:p-10 font-sans">
+    <div class="max-w-4xl mx-auto">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-black text-slate-900">PRODUCT <span class="text-blue-600">MANAGER</span></h1>
+            <a href="index.html" class="bg-white border border-slate-200 px-4 py-2 rounded-xl font-bold text-slate-600 hover:bg-slate-50 transition">Lihat Web</a>
+        </div>
+
+        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 mb-10">
+            <h2 class="text-xl font-bold mb-6">Tambah / Edit Produk</h2>
+            <form id="product-form" class="space-y-4">
+                <input type="hidden" id="product-id">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Nama Produk</label>
+                        <input type="text" id="p-name" required class="w-full p-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Harga (Angka saja)</label>
+                        <input type="number" id="p-price" required class="w-full p-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-2">URL Thumbnail (Image)</label>
+                    <input type="text" id="p-thumb" required class="w-full p-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-500 outline-none" placeholder="https://...">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Deskripsi Singkat</label>
+                    <textarea id="p-desc" required class="w-full p-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-500 outline-none" rows="3"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Kategori</label>
+                    <select id="p-tag" class="w-full p-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-500 outline-none">
+                        <option value="Premium Code">Premium Code</option>
+                        <option value="Design Kit">Design Kit</option>
+                        <option value="E-Book">E-Book</option>
+                        <option value="Service">Service</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white p-5 rounded-3xl font-bold hover:bg-blue-700 transition shadow-xl shadow-blue-100">Simpan Produk</button>
+            </form>
+        </div>
+
+        <div class="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden">
+            <table class="w-full text-left">
+                <thead class="bg-slate-50 border-b border-slate-100">
+                    <tr class="text-[10px] font-bold text-slate-400 uppercase">
+                        <th class="p-6">Produk</th>
+                        <th class="p-6">Harga</th>
+                        <th class="p-6">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="product-table-body" class="divide-y divide-slate-50 font-medium">
+                    <!-- Data will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let products = JSON.parse(localStorage.getItem('digital_market_products')) || [];
+
+        function renderProducts() {
+            const body = document.getElementById('product-table-body');
+            body.innerHTML = products.map((p, index) => `
+                <tr>
+                    <td class="p-6">
+                        <div class="flex items-center gap-4">
+                            <img src="${p.thumb}" class="w-12 h-12 rounded-xl object-cover">
+                            <div>
+                                <div class="text-slate-900 font-bold">${p.name}</div>
+                                <div class="text-[10px] text-blue-500 font-bold uppercase">${p.tag}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-6 text-slate-600 text-sm">Rp ${parseInt(p.price).toLocaleString()}</td>
+                    <td class="p-6">
+                        <div class="flex gap-2">
+                            <button onclick="editProduct(${index})" class="text-blue-500 hover:text-blue-700 text-xs font-bold">Edit</button>
+                            <button onclick="deleteProduct(${index})" class="text-red-500 hover:text-red-700 text-xs font-bold">Hapus</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+            localStorage.setItem('digital_market_products', JSON.stringify(products));
+        }
+
+        document.getElementById('product-form').onsubmit = function(e) {
+            e.preventDefault();
+            const id = document.getElementById('product-id').value;
+            const data = {
+                name: document.getElementById('p-name').value,
+                price: document.getElementById('p-price').value,
+                thumb: document.getElementById('p-thumb').value,
+                desc: document.getElementById('p-desc').value,
+                tag: document.getElementById('p-tag').value
+            };
+
+            if(id !== "") {
+                products[id] = data;
+            } else {
+                products.push(data);
+            }
+
+            this.reset();
+            document.getElementById('product-id').value = "";
+            renderProducts();
+            alert("Berhasil disimpan di LocalStorage browser ini!");
+        };
+
+        function deleteProduct(index) {
+            if(confirm('Hapus produk ini?')) {
+                products.splice(index, 1);
+                renderProducts();
+            }
+        }
+
+        function editProduct(index) {
+            const p = products[index];
+            document.getElementById('product-id').value = index;
+            document.getElementById('p-name').value = p.name;
+            document.getElementById('p-price').value = p.price;
+            document.getElementById('p-thumb').value = p.thumb;
+            document.getElementById('p-desc').value = p.desc;
+            document.getElementById('p-tag').value = p.tag;
+            window.scrollTo(0,0);
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>
