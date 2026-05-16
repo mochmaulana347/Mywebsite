@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Market Pro - Premium Digital Assets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #1e293b; scroll-behavior: smooth; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
+        .gradient-text { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-gradient { background: radial-gradient(circle at top right, #dbeafe, transparent), radial-gradient(circle at bottom left, #eff6ff, transparent); }
+        .product-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+        .cart-sidebar { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .badge { font-size: 0.65rem; padding: 0.1rem 0.5rem; border-radius: 9999px; font-weight: 700; text-transform: uppercase; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Announcement Bar -->
+    <div class="bg-blue-600 text-white text-[10px] md:text-xs py-2 text-center font-bold tracking-wider uppercase">
+        <i class="fa-solid fa-bolt mr-2"></i> Promo Terbatas: Diskon 20% untuk semua E-Book! Gunakan kode: PROMO20
+    </div>
+
+    <!-- Navbar -->
+    <nav class="glass sticky top-0 z-[60] py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-2 group cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200 group-hover:rotate-12 transition-transform">
+                        <i class="fa-solid fa-layer-group text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-extrabold tracking-tighter text-slate-900">DIGITAL<span class="text-blue-600">PRO</span></span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8 font-semibold text-sm text-slate-600">
+                    <a href="#" class="hover:text-blue-600 transition">Beranda</a>
+                    <a href="#products" class="hover:text-blue-600 transition">Produk</a>
+                    <a href="#testimoni" class="hover:text-blue-600 transition">Testimoni</a>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleCart()" class="relative w-12 h-12 flex items-center justify-center rounded-2xl bg-slate-100 hover:bg-blue-50 text-slate-600 hover:text-blue-600 transition duration-300">
+                        <i class="fa-solid fa-bag-shopping text-xl"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black rounded-full h-5 w-5 flex items-center justify-center border-2 border-white hidden">0</span>
+                    </button>
+                    <button class="md:hidden w-12 h-12 flex items-center justify-center rounded-2xl bg-slate-100 text-slate-600">
+                        <i class="fa-solid fa-bars-staggered text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-gradient pt-16 pb-24 px-4 overflow-hidden">
+        <div class="max-w-7xl mx-auto flex flex-col items-center text-center">
+            <div class="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 px-4 py-1.5 rounded-full mb-8 shadow-sm">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                </span>
+                <span class="text-blue-700 text-xs font-bold tracking-wide uppercase">Tersedia 500+ Aset Digital Premium</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 mb-6 tracking-tight leading-[1.1]">
+                Tingkatkan Projekmu <br> <span class="gradient-text">Lebih Cepat & Pro.</span>
+            </h1>
+            <p class="max-w-2xl text-slate-500 text-lg md:text-xl mb-10 leading-relaxed font-medium">
+                Koleksi template, script, dan aset desain kualitas dunia untuk membantu freelancer & developer berkembang.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 items-center">
+                <a href="#products" class="w-full sm:w-auto bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-200 flex items-center justify-center">
+                    Cek Koleksi <i class="fa-solid fa-arrow-right ml-3"></i>
+                </a>
+                <a href="#why-us" class="w-full sm:w-auto bg-white text-slate-600 border border-slate-200 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-slate-50 transition flex items-center justify-center">
+                    Mengapa Kami?
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Bar -->
+    <div class="max-w-5xl mx-auto -mt-12 relative z-10 px-4">
+        <div class="bg-white rounded-3xl shadow-2xl shadow-slate-200 border border-slate-100 grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+            <div class="p-8 text-center">
+                <div class="text-3xl font-extrabold text-slate-900 mb-1">15k+</div>
+                <div class="text-slate-400 text-sm font-semibold uppercase tracking-widest">Penjualan Sukses</div>
+            </div>
+            <div class="p-8 text-center">
+                <div class="text-3xl font-extrabold text-slate-900 mb-1">99%</div>
+                <div class="text-slate-400 text-sm font-semibold uppercase tracking-widest">Kepuasan Client</div>
+            </div>
+            <div class="p-8 text-center">
+                <div class="text-3xl font-extrabold text-slate-900 mb-1">24/7</div>
+                <div class="text-slate-400 text-sm font-semibold uppercase tracking-widest">Support Cepat</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Grid -->
+    <main id="products" class="max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Koleksi Terlaris</h2>
+                <p class="text-slate-500 mt-2 font-medium">Pilihan terbaik untuk performa maksimal Anda.</p>
+            </div>
+            <div class="flex gap-2">
+                <button class="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-blue-100">Semua</button>
+                <button class="px-4 py-2 bg-white text-slate-500 rounded-xl text-sm font-bold border border-slate-100 hover:bg-slate-50">Code</button>
+                <button class="px-4 py-2 bg-white text-slate-500 rounded-xl text-sm font-bold border border-slate-100 hover:bg-slate-50">Design</button>
+            </div>
+        </div>
+        
+        <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Product 1 -->
+            <div class="product-card bg-white rounded-[2rem] p-3 border border-slate-100 group">
+                <div class="aspect-video bg-blue-50 rounded-[1.5rem] flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+                    <i class="fa-solid fa-code text-6xl text-blue-200 group-hover:scale-110 transition-transform duration-500"></i>
+                    <div class="absolute top-4 left-4">
+                        <span class="badge bg-blue-600 text-white shadow-lg">Premium Code</span>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <div class="flex items-center gap-1 text-yellow-400 mb-3 text-sm">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        <span class="text-slate-400 text-xs ml-1 font-bold">(48)</span>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-slate-900 group-hover:text-blue-600 transition">Premium SaaS Template</h3>
+                    <p class="text-slate-500 text-sm mt-3 leading-relaxed font-medium">React 18 + Tailwind 3 + Framer Motion. SEO friendly & Light speed.</p>
+                    <div class="mt-8 flex justify-between items-center">
+                        <div>
+                            <span class="text-slate-400 text-xs block font-bold line-through">Rp 250.000</span>
+                            <span class="text-2xl font-extrabold text-slate-900 tracking-tighter">Rp 150.000</span>
+                        </div>
+                        <button onclick="addToCart(1, 'Premium SaaS Template', 150000)" class="w-12 h-12 bg-slate-900 text-white rounded-2xl hover:bg-blue-600 transition duration-300 flex items-center justify-center shadow-xl">
+                            <i class="fa-solid fa-plus text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card bg-white rounded-[2rem] p-3 border border-slate-100 group">
+                <div class="aspect-video bg-purple-50 rounded-[1.5rem] flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-purple-600 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+                    <i class="fa-solid fa-palette text-6xl text-purple-200 group-hover:scale-110 transition-transform duration-500"></i>
+                    <div class="absolute top-4 left-4">
+                        <span class="badge bg-purple-600 text-white shadow-lg">Design Kit</span>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <div class="flex items-center gap-1 text-yellow-400 mb-3 text-sm">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                        <span class="text-slate-400 text-xs ml-1 font-bold">(124)</span>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-slate-900 group-hover:text-purple-600 transition">Social Media Bundle</h3>
+                    <p class="text-slate-500 text-sm mt-3 leading-relaxed font-medium">100+ Instagram Post & Story templates. Canva & Figma files included.</p>
+                    <div class="mt-8 flex justify-between items-center">
+                        <div>
+                            <span class="text-slate-400 text-xs block font-bold line-through">Rp 150.000</span>
+                            <span class="text-2xl font-extrabold text-slate-900 tracking-tighter">Rp 75.000</span>
+                        </div>
+                        <button onclick="addToCart(2, 'Social Media Bundle', 75000)" class="w-12 h-12 bg-slate-900 text-white rounded-2xl hover:bg-purple-600 transition duration-300 flex items-center justify-center shadow-xl">
+                            <i class="fa-solid fa-plus text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card bg-white rounded-[2rem] p-3 border border-slate-100 group">
+                <div class="aspect-video bg-emerald-50 rounded-[1.5rem] flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-emerald-600 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+                    <i class="fa-solid fa-book-open text-6xl text-emerald-200 group-hover:scale-110 transition-transform duration-500"></i>
+                    <div class="absolute top-4 left-4">
+                        <span class="badge bg-emerald-600 text-white shadow-lg">Best Seller</span>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <div class="flex items-center gap-1 text-yellow-400 mb-3 text-sm">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        <span class="text-slate-400 text-xs ml-1 font-bold">(86)</span>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-slate-900 group-hover:text-emerald-600 transition">E-Book: Master Freelancing</h3>
+                    <p class="text-slate-500 text-sm mt-3 leading-relaxed font-medium">Panduan lengkap berkarir di platform internasional dengan gaji 6-digit.</p>
+                    <div class="mt-8 flex justify-between items-center">
+                        <div>
+                            <span class="text-slate-400 text-xs block font-bold line-through">Rp 300.000</span>
+                            <span class="text-2xl font-extrabold text-slate-900 tracking-tighter">Rp 120.000</span>
+                        </div>
+                        <button onclick="addToCart(3, 'E-Book: Master Freelancing', 120000)" class="w-12 h-12 bg-slate-900 text-white rounded-2xl hover:bg-emerald-600 transition duration-300 flex items-center justify-center shadow-xl">
+                            <i class="fa-solid fa-plus text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 pt-20 pb-10 text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="md:col-span-1">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-900">
+                        <i class="fa-solid fa-layer-group text-white text-sm"></i>
+                    </div>
+                    <span class="text-lg font-extrabold tracking-tighter text-white">DIGITAL<span class="text-blue-600 text-sm">PRO</span></span>
+                </div>
+                <p class="text-sm leading-relaxed mb-6 font-medium">Kami menyediakan aset digital berkualitas tinggi untuk membantu perjalanan karir dan bisnis Anda di era digital.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition duration-300"><i class="fa-brands fa-instagram text-white"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition duration-300"><i class="fa-brands fa-tiktok text-white"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition duration-300"><i class="fa-brands fa-youtube text-white"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-6">Produk</h4>
+                <ul class="text-sm space-y-4 font-medium">
+                    <li><a href="#" class="hover:text-blue-400 transition">SaaS Template</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">Design UI Kit</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">E-Book Premium</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">Graphic Bundle</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-6">Bantuan</h4>
+                <ul class="text-sm space-y-4 font-medium">
+                    <li><a href="#" class="hover:text-blue-400 transition">Terms of Service</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">Refund Policy</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-6">Kontak</h4>
+                <p class="text-sm mb-4 font-medium"><i class="fa-solid fa-envelope mr-3 text-blue-500"></i> support@digitalpro.com</p>
+                <p class="text-sm font-medium"><i class="fa-brands fa-whatsapp mr-3 text-green-500"></i> +62 812 3456 7890</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-20 pt-8 border-t border-slate-800 text-center text-xs font-bold tracking-widest uppercase">
+            &copy; 2024 DIGITAL PRO. Dibuat dengan <i class="fa-solid fa-heart text-red-500 mx-1"></i> untuk Kreator.
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar fixed inset-y-0 right-0 w-full md:w-[450px] bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-[70] flex flex-col">
+        <div class="p-8 flex justify-between items-center border-b border-slate-100">
+            <div>
+                <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Keranjang Anda</h2>
+                <p id="cart-items-count-text" class="text-slate-400 text-xs font-bold uppercase mt-1">0 Item Terpilih</p>
+            </div>
+            <button onclick="toggleCart()" class="w-12 h-12 flex items-center justify-center rounded-2xl bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition duration-300">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+        
+        <div id="cart-items" class="flex-1 overflow-y-auto p-8 space-y-6">
+            <!-- Items injected via JS -->
+            <div class="flex flex-col items-center justify-center h-full text-center">
+                <div class="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mb-6">
+                    <i class="fa-solid fa-cart-flatbed text-slate-200 text-4xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900">Keranjang Kosong</h3>
+                <p class="text-slate-400 text-sm mt-1">Ayo tambahkan aset digital pertamamu!</p>
+            </div>
+        </div>
+
+        <div class="p-8 border-t border-slate-100 bg-slate-50">
+            <div class="flex justify-between items-end mb-6">
+                <span class="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Total Bayar</span>
+                <span id="cart-total" class="text-3xl font-extrabold text-slate-900 tracking-tighter">Rp 0</span>
+            </div>
+            <button onclick="openCheckout()" class="w-full bg-slate-900 text-white py-5 rounded-3xl font-bold hover:bg-blue-600 transition duration-300 shadow-xl shadow-slate-200 flex items-center justify-center group">
+                Lanjut ke Pembayaran <i class="fa-solid fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" onclick="toggleCart()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-[65]"></div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-[80] hidden flex items-center justify-center p-4">
+        <div class="fixed inset-0 bg-slate-900/80 backdrop-blur-md" onclick="closeCheckout()"></div>
+        <div class="bg-white rounded-[2.5rem] w-full max-w-lg p-10 relative z-10 shadow-2xl border border-slate-100">
+            <div class="flex justify-between items-start mb-8">
+                <div>
+                    <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Konfirmasi Order</h2>
+                    <p class="text-slate-400 text-sm font-medium mt-1">Kami akan memproses order via WhatsApp.</p>
+                </div>
+                <button onclick="closeCheckout()" class="text-slate-300 hover:text-slate-900 transition"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            
+            <form id="checkout-form" onsubmit="handlePayment(event)" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Nama Lengkap</label>
+                        <input type="text" id="name" required class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition font-semibold" placeholder="Budi Santoso">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">No. WhatsApp</label>
+                        <input type="tel" id="whatsapp" required class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition font-semibold" placeholder="0812xxxx">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Alamat Email</label>
+                    <input type="email" id="email" required class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition font-semibold" placeholder="budi@email.com">
+                </div>
+                
+                <div class="bg-blue-50 p-6 rounded-3xl border border-blue-100 flex items-start gap-4">
+                    <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shrink-0 shadow-lg shadow-blue-200">
+                        <i class="fa-brands fa-whatsapp text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-blue-900">Metode: WhatsApp Order</h4>
+                        <p class="text-xs text-blue-700/70 mt-1 leading-relaxed">Setelah klik beli, Anda akan diarahkan ke WhatsApp untuk detail pembayaran & pengiriman link download.</p>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-green-600 text-white py-5 rounded-3xl font-bold hover:bg-green-700 transition-all duration-300 shadow-xl shadow-green-100 hover:shadow-green-200 flex items-center justify-center text-lg">
+                        Pesan Sekarang <i class="fa-solid fa-check-double ml-3"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
